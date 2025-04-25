@@ -172,7 +172,7 @@ export default function LandingPage() {
             whileTap={{ scale: 0.95 }}
             variants={item}
           >
-            Ruleta
+            ¡GIRO!
           </Btn>
           <Btn
             onClick={() => setIframeUrl("https://gen-coin.netlify.app")}
@@ -180,7 +180,7 @@ export default function LandingPage() {
             whileTap={{ scale: 0.95 }}
             variants={item}
           >
-            Juego
+            REFLEJO
           </Btn>
           <Btn
             onClick={() => window.open("https://photora.netlify.app", "_blank")}
