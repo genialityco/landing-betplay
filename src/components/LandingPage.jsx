@@ -184,7 +184,7 @@ export default function LandingPage() {
             REFLEJO
           </Btn>
           <Btn
-            onClick={() => window.open("")}
+            onClick={() => window.location = import.meta.env.VITE_PHOTO_URL}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             variants={item}
