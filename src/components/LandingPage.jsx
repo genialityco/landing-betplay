@@ -183,7 +183,7 @@ export default function LandingPage() {
             Juego
           </Btn>
           <Btn
-            onClick={() => alert("Aquí puedes agregar un tercer juego o acción")}
+            onClick={() => setIframeUrl("https://photora.netlify.app")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             variants={item}
