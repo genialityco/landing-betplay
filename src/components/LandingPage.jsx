@@ -139,6 +139,7 @@ const BackButton = styled.button`
   }
 `;
 
+console.log('import.meta.env',import.meta.env)
 // Animación en cascada
 const container = { hidden: {}, visible: { transition: { staggerChildren: 0.2 } } };
 const item = {
@@ -166,8 +167,8 @@ export default function LandingPage() {
         <LogoImage src={logo} alt="Pretty Dirty" variants={item} />
 
         <ButtonGroup variants={item}>
-          <Btn
-            onClick={() => setIframeUrl("https://gen-fortunewheel.netlify.app")}
+          <Btn 
+            onClick={() => setIframeUrl(import.meta.env.VITE_RULETA_URL)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             variants={item}
@@ -175,7 +176,7 @@ export default function LandingPage() {
             ¡GIRO!
           </Btn>
           <Btn
-            onClick={() => setIframeUrl("https://gen-coin.netlify.app")}
+            onClick={() => setIframeUrl(import.meta.env.VITE_AGILIDAD_URL)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             variants={item}
@@ -183,7 +184,7 @@ export default function LandingPage() {
             REFLEJO
           </Btn>
           <Btn
-            onClick={() => window.open("https://photora.netlify.app", "_blank")}
+            onClick={() => window.open("")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             variants={item}
