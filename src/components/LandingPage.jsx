@@ -34,10 +34,10 @@ const VideoBg = styled.video`
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100vmin;
-  height: 100vmin;
+  width: 100%;
+  height: 100%;
   transform: translate(-50%, -50%);
-  object-fit: cover;
+  object-fit: fill;
 `;
 
 const Content = styled(motion.div)`
@@ -75,12 +75,12 @@ const ButtonGroup = styled(motion.div)`
   }
 `;
 const Btn = styled(motion.button)`
-  width: clamp(120px, 25vw, 200px);
-  padding: 25px;
+  width: clamp(180px, 37.5vw, 300px); /* Increased by 150% */
+  padding: 37.5px; /* Increased by 150% */
   background: url(${buttonBg}) center/contain no-repeat;
   border: none;
   color: #ffd24c;
-  font-size: clamp(1rem, 2.5vw, 1.1rem);
+  font-size: clamp(1.5rem, 3.75vw, 1.65rem); /* Already increased by 150% */
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
