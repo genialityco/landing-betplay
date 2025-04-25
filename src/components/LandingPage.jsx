@@ -139,12 +139,15 @@ const BackButton = styled.button`
   }
 `;
 
-console.log('import.meta.env',import.meta.env)
+console.log("import.meta.env", import.meta.env);
 // Animación en cascada
-const container = { hidden: {}, visible: { transition: { staggerChildren: 0.2 } } };
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.2 } },
+};
 const item = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 60 } }
+  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 60 } },
 };
 
 export default function LandingPage() {
@@ -167,7 +170,7 @@ export default function LandingPage() {
         <LogoImage src={logo} alt="Pretty Dirty" variants={item} />
 
         <ButtonGroup variants={item}>
-          <Btn 
+          <Btn
             onClick={() => setIframeUrl(import.meta.env.VITE_RULETA_URL)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -183,14 +186,14 @@ export default function LandingPage() {
           >
             REFLEJO
           </Btn>
-          <Btn
+          {/* <Btn
             onClick={() => window.open("")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             variants={item}
           >
             Filtro
-          </Btn>
+          </Btn> */}
         </ButtonGroup>
 
         <Coins src={coins} alt="Monedas" variants={item} />
