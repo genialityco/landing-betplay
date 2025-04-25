@@ -183,7 +183,7 @@ export default function LandingPage() {
             Juego
           </Btn>
           <Btn
-            onClick={() => setIframeUrl("https://photora.netlify.app")}
+            onClick={() => window.open("https://photora.netlify.app", "_blank")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             variants={item}
