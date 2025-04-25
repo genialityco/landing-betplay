@@ -60,13 +60,13 @@ const TopImage = styled(motion.img)`
   width: clamp(180px, 40vw, 350px);
 `;
 const LogoImage = styled(motion.img)`
-  width: clamp(240px, 55vw, 450px);
+  width: clamp(240px, 80vw, 550px);
 `;
 const ButtonGroup = styled(motion.div)`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: clamp(8px, 2vw, 16px);
+  gap: clamp(5px, 2vw, 10px);
 
   @media (max-width: ${bp.sm}) {
     flex-direction: column;
@@ -76,11 +76,11 @@ const ButtonGroup = styled(motion.div)`
 `;
 const Btn = styled(motion.button)`
   width: clamp(120px, 25vw, 200px);
-  padding: 25px;
+  padding: 45px;
   background: url(${buttonBg}) center/contain no-repeat;
   border: none;
   color: #ffd24c;
-  font-size: clamp(1rem, 2.5vw, 1.1rem);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
@@ -89,7 +89,7 @@ const Btn = styled(motion.button)`
   justify-content: center;
 `;
 const Coins = styled(motion.img)`
-  width: clamp(80px, 15vw, 170px);
+  width: clamp(80px, 40vw, 270px);
   animation: ${bounce} 2.5s ease-in-out infinite;
 `;
 
@@ -102,7 +102,7 @@ const Footer = styled.footer`
   padding-bottom: clamp(8px, 2vh, 16px);
 `;
 const LegalesImg = styled.img`
-  width: clamp(150px, 35vw, 500px);
+  width: clamp(180px, 90vw, 800px);
   height: auto;
 `;
 
