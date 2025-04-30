@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
 
-import videoSrc from "../assets/FONDO_MALUMA.mp4";
-import topText from "../assets/FRASE_SUPERIOR.png";
-import logo from "../assets/TEXTO-DORADO.png";
+import videoSrc from "../assets/FONDO_INICIO.png";
+// import topText from "../assets/FRASE_SUPERIOR.png";
+import logo from "../assets/LOGO+SLOGAN.png";
 import buttonBg from "../assets/BOTON.png";
-import coins from "../assets/MONEDAS.png";
+import coins from "../assets/SOL.png";
 import legales from "../assets/LEGALES.png";
 
 // Animaciones
@@ -22,7 +22,8 @@ const bp = { md: "768px", sm: "480px" };
 const Hero = styled.section`
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -30,15 +31,26 @@ const Hero = styled.section`
   align-items: center;
 `;
 
-const VideoBg = styled.video`
+// const VideoBg = styled.video`
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   width: 100vw;
+//   height: 100vh;
+//   transform: translate(-50%, -50%);
+//   object-fit: cover;
+// `;
+
+const BackgroundImage = styled.img`
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100vw;
-  height: 100vh;
+  min-width: 100%;
+  min-height: 100%;
   transform: translate(-50%, -50%);
   object-fit: cover;
 `;
+
 
 const Content = styled(motion.div)`
   position: relative;
@@ -74,24 +86,34 @@ const ButtonGroup = styled(motion.div)`
     gap: clamp(4px, 1.5vw, 8px);
   }
 `;
+
 const Btn = styled(motion.button)`
   width: clamp(120px, 25vw, 200px);
   padding: 45px;
   background: url(${buttonBg}) center/contain no-repeat;
   border: none;
   color: #ffd24c;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: ${bp.sm}) {
+    font-size: 1.1rem;
+    padding: 30px;
+  }
 `;
+
+
 const Coins = styled(motion.img)`
   width: clamp(80px, 40vw, 270px);
+  max-width: 90vw;
   animation: ${bounce} 2.5s ease-in-out infinite;
 `;
+
 
 const Footer = styled.footer`
   position: relative;
@@ -99,8 +121,9 @@ const Footer = styled.footer`
   width: 100%;
   display: flex;
   justify-content: center;
-  padding-bottom: clamp(8px, 2vh, 16px);
+  padding-inline: 1rem;
 `;
+
 const LegalesImg = styled.img`
   width: clamp(180px, 90vw, 800px);
   height: auto;
@@ -161,9 +184,10 @@ export default function LandingPage() {
 
   return (
     <Hero>
-      <VideoBg src={videoSrc} autoPlay muted loop playsInline />
+      {/* <VideoBg src={videoSrc} autoPlay muted loop playsInline /> */}
+      <BackgroundImage src={videoSrc} alt="Fondo" />
       <Content initial="hidden" animate="visible" variants={container}>
-        <TopImage src={topText} alt="Frase superior" variants={item} />
+        {/* <TopImage src={topText} alt="Frase superior" variants={item} /> */}
         <LogoImage src={logo} alt="Pretty Dirty" variants={item} />
 
         <ButtonGroup variants={item}>
