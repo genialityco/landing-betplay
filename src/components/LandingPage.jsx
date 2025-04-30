@@ -109,7 +109,7 @@ const Btn = styled(motion.button)`
 
 
 const Coins = styled(motion.img)`
-  width: clamp(80px, 40vw, 270px);
+  width: clamp(100px, 70vw, 350px);
   max-width: 90vw;
   animation: ${bounce} 2.5s ease-in-out infinite;
 `;
