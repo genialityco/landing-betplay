@@ -61,18 +61,18 @@ const Content = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(16px, 4vh, 48px);
   padding: 0 1rem;
   box-sizing: border-box;
   height: 100%;
   overflow-y: auto;
+  margin-top: 100px;
 `;
 
 const TopImage = styled(motion.img)`
   width: clamp(180px, 40vw, 350px);
 `;
 const LogoImage = styled(motion.img)`
-  width: clamp(240px, 80vw, 550px);
+  width: clamp(240px, 80vw, 650px);
 `;
 const ButtonGroup = styled(motion.div)`
   display: flex;
@@ -88,12 +88,12 @@ const ButtonGroup = styled(motion.div)`
 `;
 
 const Btn = styled(motion.button)`
-  width: clamp(120px, 25vw, 200px);
+  width: clamp(120px, 25vw, 230px);
   padding: 45px;
   background: url(${buttonBg}) center/contain no-repeat;
   border: none;
   color: #ffd24c;
-  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  font-size: clamp(1.3rem, 3vw, 3rem);
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
@@ -109,7 +109,7 @@ const Btn = styled(motion.button)`
 
 
 const Coins = styled(motion.img)`
-  width: clamp(100px, 70vw, 350px);
+  width: clamp(100px, 70vw, 520px);
   max-width: 90vw;
   animation: ${bounce} 2.5s ease-in-out infinite;
 `;
@@ -162,7 +162,6 @@ const BackButton = styled.button`
   }
 `;
 
-console.log('import.meta.env',import.meta.env)
 // Animación en cascada
 const container = { hidden: {}, visible: { transition: { staggerChildren: 0.2 } } };
 const item = {
@@ -207,14 +206,14 @@ export default function LandingPage() {
           >
             REFLEJO
           </Btn>
-          <Btn
+          {/* <Btn
             onClick={() => window.location = import.meta.env.VITE_PHOTO_URL}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             variants={item}
           >
             Filtro
-          </Btn>
+          </Btn> */}
         </ButtonGroup>
 
         <Coins src={coins} alt="Monedas" variants={item} />
