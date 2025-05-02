@@ -145,7 +145,7 @@ const StyledIframe = styled.iframe`
 const BackButton = styled.button`
   position: absolute;
   top: 16px;
-  left: 16px;
+  left: 160px;
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.6);
   color: #ffd24c;
