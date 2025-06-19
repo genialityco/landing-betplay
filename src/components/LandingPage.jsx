@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 
 import videoSrc from "../assets/FONDO_INICIO.png";
 // import topText from "../assets/FRASE_SUPERIOR.png";
-import logo from "../assets/LOGO+SLOGAN.png";
+import logo from "../assets/FRASE_COPY.png";
 import buttonBg from "../assets/BOTON.png";
-import coins from "../assets/SOL.png";
+import coins from "../assets/MONEDAS_HOME.png";
 import legales from "../assets/LEGALES.png";
 
 // Animaciones
@@ -51,7 +51,6 @@ const BackgroundImage = styled.img`
   object-fit: cover;
 `;
 
-
 const Content = styled(motion.div)`
   position: relative;
   z-index: 1;
@@ -93,7 +92,7 @@ const Btn = styled(motion.button)`
   background: url(${buttonBg}) center/contain no-repeat;
   border: none;
   color: #ffd24c;
-  font-size: clamp(1.3rem, 3vw, 3rem);
+  font-size: clamp(1.3rem, 1.5vw, 3rem);
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
@@ -107,13 +106,11 @@ const Btn = styled(motion.button)`
   }
 `;
 
-
 const Coins = styled(motion.img)`
-  width: clamp(100px, 70vw, 520px);
+  width: clamp(80px, 60vw, 420px);
   max-width: 90vw;
   animation: ${bounce} 2.5s ease-in-out infinite;
 `;
-
 
 const Footer = styled.footer`
   position: relative;
@@ -163,10 +160,13 @@ const BackButton = styled.button`
 `;
 
 // Animación en cascada
-const container = { hidden: {}, visible: { transition: { staggerChildren: 0.2 } } };
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.2 } },
+};
 const item = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 60 } }
+  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 60 } },
 };
 
 export default function LandingPage() {
@@ -190,13 +190,13 @@ export default function LandingPage() {
         <LogoImage src={logo} alt="Pretty Dirty" variants={item} />
 
         <ButtonGroup variants={item}>
-          <Btn 
+          <Btn
             onClick={() => setIframeUrl(import.meta.env.VITE_RULETA_URL)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             variants={item}
           >
-            ¡GIRO!
+            Ruleta BetPlay
           </Btn>
           <Btn
             onClick={() => setIframeUrl(import.meta.env.VITE_AGILIDAD_URL)}
@@ -204,8 +204,9 @@ export default function LandingPage() {
             whileTap={{ scale: 0.95 }}
             variants={item}
           >
-            REFLEJO
+            REFLEJO BetPlay
           </Btn>
+
           {/* <Btn
             onClick={() => window.location = import.meta.env.VITE_PHOTO_URL}
             whileHover={{ scale: 1.05 }}
@@ -214,6 +215,15 @@ export default function LandingPage() {
           >
             Filtro
           </Btn> */}
+
+          <Btn
+            onClick={() => (window.location = import.meta.env.VITE_RASPA_LISTO_URL)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            variants={item}
+          >
+            RASPA & LISTO
+          </Btn>
         </ButtonGroup>
 
         <Coins src={coins} alt="Monedas" variants={item} />
