@@ -9,6 +9,9 @@ import buttonBg from "../assets/BOTON.png";
 import coins from "../assets/MONEDAS_HOME.png";
 import legales from "../assets/LEGALES.png";
 
+import "./touchDebugOverlay.ts";
+import './TouchDebugOverlay.css';
+
 // Animaciones
 const bounce = keyframes`
   0%,100% { transform: translateY(0); }
