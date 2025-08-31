@@ -8,13 +8,29 @@ import btnMundo from "../BUK/BOTON_MUNDO.png";
 import btnRuleta from "../BUK/BOTON_RULETA.png";
 import phones from "../BUK/CELS.png";
 
-// Animaciones
+// --- Animaciones ---
 const bounce = keyframes`
   0%,100% { transform: translateY(0); }
   50%     { transform: translateY(-10px); }
 `;
 
-// Layout base
+// ---------- Helpers de visibilidad ----------
+const DesktopOnly = styled.div`
+  display: block;
+  @media (max-width: 1023px), (orientation: portrait) {
+    display: none;
+  }
+`;
+
+const TabletOnly = styled.div`
+  display: none;
+  /* Muestra en pantallas angostas o en orientación vertical */
+  @media (max-width: 1023px), (orientation: portrait) {
+    display: block;
+  }
+`;
+
+// ---------- Layout base compartido ----------
 const Hero = styled.section`
   position: relative;
   width: 100vw;
@@ -26,7 +42,6 @@ const Hero = styled.section`
   justify-content: center;
 `;
 
-// Fondo full-bleed
 const BackgroundImage = styled.img`
   position: absolute;
   inset: 0;
@@ -37,7 +52,6 @@ const BackgroundImage = styled.img`
   pointer-events: none;
 `;
 
-// Contenido centrado en columna
 const Content = styled(motion.div)`
   position: relative;
   z-index: 1;
@@ -49,51 +63,7 @@ const Content = styled(motion.div)`
   gap: clamp(10px, 3vh, 24px);
 `;
 
-// Logo superior
-const LogoImage = styled(motion.img)`
-  width: clamp(50px, 50vw, 300px);
-  height: auto;
-  user-select: none;
-  pointer-events: none;
-  margin-top: -200px;
-`;
-
-
-// Grupo de botones
-const ButtonGroup = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-`;
-
-
-// Botón como imagen clickeable
-const ButtonImage = styled(motion.img)`
-  width: clamp(220px, 70vw, 360px);
-  height: auto;
-  display: block;
-  cursor: pointer;
-  user-select: none;
-  translate-y: 2px;
-`;
-
-// Celulares decorativos (abajo, centrados)
-const PhonesImg = styled(motion.img)`
-  position: absolute;
-  bottom: clamp(-12px, -1vh, 0px);
-  left: 1/2;
-  transform: translateY(100%);
-  width: clamp(300px, 80vw, 600px);
-  max-width: 95vw;
-  height: auto;
-  animation: ${bounce} 3s ease-in-out infinite;
-  pointer-events: none;
-  user-select: none;
-  scale: 1;
-`;
-
-// Variants para fade-in en cascada
+// ---------- Variants ----------
 const container = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.15 } },
@@ -103,44 +73,163 @@ const item = {
   visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 70 } },
 };
 
+// ---------- Desktop (landscape / ≥1024px) ----------
+const LogoDesktop = styled(motion.img)`
+  width: clamp(160px, 28vw, 300px);
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+  margin-top: -140px;
+`;
+
+const ButtonsDesktop = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+`;
+
+const ButtonImgDesktop = styled(motion.img)`
+  width: clamp(260px, 32vw, 360px);
+  height: auto;
+  display: block;
+  cursor: pointer;
+  user-select: none;
+`;
+
+const PhonesDesktop = styled(motion.img)`
+  position: absolute;
+  bottom: clamp(-12px, -1vh, 0px);
+  left: 20%;
+  top: 30%;
+  width: clamp(420px, 58vw, 900px);
+  height: auto;
+  animation: ${bounce} 3s ease-in-out infinite;
+  pointer-events: none;
+  user-select: none;
+`;
+
+// ---------- Tablet/Vertical (<1024px o portrait) ----------
+/* En vertical hacemos todo MÁS GRANDE para que no “se vea pequeño”.
+   Subimos límites de clamp y aumentamos el gap. */
+const ContentTablet = styled(Content)`
+  width: min(100%, 680px);
+  gap: clamp(16px, 4.5vh, 28px);
+  transform: translateY(-1vh);
+`;
+
+const LogoTablet = styled(motion.img)`
+  width: clamp(220px, 60vw, 500px);
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+  margin-top: -15vh;
+`;
+
+const ButtonsTablet = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+`;
+
+const ButtonImgTablet = styled(motion.img)`
+  width: clamp(300px, 88vw, 520px);
+  height: auto;
+  display: block;
+  cursor: pointer;
+  user-select: none;
+`;
+
+const PhonesTablet = styled(motion.img)`
+  position: absolute;
+  bottom: clamp(-6px, 1vh, 24px);
+  left: -10%;
+  top: 40%;
+  width: clamp(450px, 120vw, 1500px);
+  height: auto;
+  animation: ${bounce} 3s ease-in-out infinite;
+  pointer-events: none;
+  user-select: none;
+`;
+
+// ---------- Componente ----------
 export default function LandingPage() {
   return (
-    <Hero>
-      {/* Fondo */}
-      <BackgroundImage src={bg} alt="Fondo BUK" />
-      <Content initial="hidden" animate="visible" variants={container}>
-        <LogoImage src={logo} alt="buk" variants={item} />
-        <ButtonGroup variants={item}>
-          <a href="https://where-is-buk.netlify.app" aria-label="Mundo Buk">
-            <ButtonImage
-              src={btnMundo}
-              alt="MUNDO BUK"
-              whileHover={{ scale: 1 }}
-              whileTap={{ scale: 0.9 }}
-            />
-          </a>
-          {/* RULETA BUK */}
-          <a href="https://gen-fortunewheel.netlify.app" aria-label="Ruleta Buk">
-            <ButtonImage
-              src={btnRuleta}
-              alt="RULETA BUK"
-              whileHover={{ scale: 1 }}
-              whileTap={{ scale: 0.9 }}
-              style={{ marginTop: "-20px" }} // 👈 mueve solo este botón hacia arriba
-            />
-          </a>
+    <>
+      {/* ====== Desktop ====== */}
+      <DesktopOnly>
+        <Hero>
+          <BackgroundImage src={bg} alt="Fondo BUK" />
+          <Content initial="hidden" animate="visible" variants={container}>
+            <LogoDesktop src={logo} alt="buk" variants={item} />
+            <ButtonsDesktop variants={item}>
+              <a href="https://where-is-buk.netlify.app" aria-label="Mundo Buk">
+                <ButtonImgDesktop
+                  src={btnMundo}
+                  alt="MUNDO BUK"
+                  whileHover={{ scale: 1 }}
+                  whileTap={{ scale: 0.9 }}
+                />
+              </a>
+              <a href="https://gen-fortunewheel.netlify.app" aria-label="Ruleta Buk">
+                <ButtonImgDesktop
+                  src={btnRuleta}
+                  alt="RULETA BUK"
+                  whileHover={{ scale: 1 }}
+                  whileTap={{ scale: 0.9 }}
+                  style={{ marginTop: "-30px" }}
+                />
+              </a>
+            </ButtonsDesktop>
+          </Content>
 
-        </ButtonGroup>
-      </Content>
+          <PhonesDesktop
+            src={phones}
+            alt="Celulares BUK"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 60, delay: 0.4 }}
+          />
+        </Hero>
+      </DesktopOnly>
 
-      {/* Celulares decorativos */}
-      <PhonesImg
-        src={phones}
-        alt="Celulares BUK"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ type: "spring", stiffness: 60, delay: 0.4 }}
-      />
-    </Hero>
+      {/* ====== Tablet / Vertical ====== */}
+      <TabletOnly>
+        <Hero>
+          <BackgroundImage src={bg} alt="Fondo BUK" />
+          <ContentTablet initial="hidden" animate="visible" variants={container}>
+            <LogoTablet src={logo} alt="buk" variants={item} />
+            <ButtonsTablet variants={item}>
+              <a href="https://where-is-buk.netlify.app" aria-label="Mundo Buk">
+                <ButtonImgTablet
+                  src={btnMundo}
+                  alt="MUNDO BUK"
+                  whileHover={{ scale: 1 }}
+                  whileTap={{ scale: 0.96 }}
+                />
+              </a>
+              <a href="https://gen-fortunewheel.netlify.app" aria-label="Ruleta Buk">
+                <ButtonImgTablet
+                  src={btnRuleta}
+                  alt="RULETA BUK"
+                  whileHover={{ scale: 1 }}
+                  whileTap={{ scale: 0.96 }}
+                  style={{ marginTop: "-40px" }}
+                />
+              </a>
+            </ButtonsTablet>
+          </ContentTablet>
+
+          <PhonesTablet
+            src={phones}
+            alt="Celulares BUK"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 60, delay: 0.4 }}
+          />
+        </Hero>
+      </TabletOnly>
+    </>
   );
 }

@@ -3,12 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "vite --port  5175",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
+ "scripts": {
+  "dev": "vite --port 5175 --host",
+  "build": "vite build",
+  "lint": "eslint .",
+  "preview": "vite preview --host --port 5175"
+},
+
   "dependencies": {
     "framer-motion": "^12.7.4",
     "react": "^19.0.0",
