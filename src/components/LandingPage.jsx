@@ -1,16 +1,12 @@
-import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
 
-import videoSrc from "../assets/FONDO_INICIO.png";
-// import topText from "../assets/FRASE_SUPERIOR.png";
-import logo from "../assets/FRASE_COPY.png";
-import buttonBg from "../assets/BOTON.png";
-import coins from "../assets/MONEDAS_HOME.png";
-import legales from "../assets/LEGALES.png";
-
-import "./touchDebugOverlay.ts";
-import './TouchDebugOverlay.css';
+// ✅ Assets BUK
+import bg from "../BUK/FONDO_MAIN.png";
+import logo from "../BUK/LOGO_COPY.png";
+import btnMundo from "../BUK/BOTON_MUNDO.png";
+import btnRuleta from "../BUK/BOTON_RULETA.png";
+import phones from "../BUK/CELS.png";
 
 // Animaciones
 const bounce = keyframes`
@@ -18,10 +14,7 @@ const bounce = keyframes`
   50%     { transform: translateY(-10px); }
 `;
 
-// Breakpoints
-const bp = { md: "768px", sm: "480px" };
-
-// Estilos base
+// Layout base
 const Hero = styled.section`
   position: relative;
   width: 100vw;
@@ -29,211 +22,125 @@ const Hero = styled.section`
   max-height: 100dvh;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 `;
 
-// const VideoBg = styled.video`
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   width: 100vw;
-//   height: 100vh;
-//   transform: translate(-50%, -50%);
-//   object-fit: cover;
-// `;
-
+// Fondo full-bleed
 const BackgroundImage = styled.img`
   position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  user-select: none;
+  pointer-events: none;
 `;
 
+// Contenido centrado en columna
 const Content = styled(motion.div)`
   position: relative;
   z-index: 1;
-  flex: 1;
-  width: 100%;
+  width: min(100%, 900px);
+  padding: 0 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 0 1rem;
-  box-sizing: border-box;
-  height: 100%;
-  overflow-y: auto;
-  margin-top: 100px;
+  gap: clamp(10px, 3vh, 24px);
 `;
 
-const TopImage = styled(motion.img)`
-  width: clamp(180px, 40vw, 350px);
-`;
+// Logo superior
 const LogoImage = styled(motion.img)`
-  width: clamp(240px, 80vw, 650px);
+  width: clamp(50px, 50vw, 300px);
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+  margin-top: -200px;
 `;
+
+
+// Grupo de botones
 const ButtonGroup = styled(motion.div)`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: clamp(5px, 2vw, 10px);
-
-  @media (max-width: ${bp.sm}) {
-    flex-direction: column;
-    width: 100%;
-    gap: clamp(4px, 1.5vw, 8px);
-  }
-`;
-
-const Btn = styled(motion.button)`
-  width: clamp(120px, 25vw, 230px);
-  padding: 45px;
-  background: url(${buttonBg}) center/contain no-repeat;
-  border: none;
-  color: #ffd24c;
-  font-size: clamp(1.3rem, 1.5vw, 3rem);
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-  display: flex;
+  flex-direction: column;
+  width: 100%;
   align-items: center;
-  justify-content: center;
-
-  @media (max-width: ${bp.sm}) {
-    font-size: 1.1rem;
-    padding: 30px;
-  }
 `;
 
-const Coins = styled(motion.img)`
-  width: clamp(80px, 60vw, 420px);
-  max-width: 90vw;
-  animation: ${bounce} 2.5s ease-in-out infinite;
-`;
 
-const Footer = styled.footer`
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding-inline: 1rem;
-`;
-
-const LegalesImg = styled.img`
-  width: clamp(180px, 90vw, 800px);
+// Botón como imagen clickeable
+const ButtonImage = styled(motion.img)`
+  width: clamp(220px, 70vw, 360px);
   height: auto;
-`;
-
-const IframeContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-`;
-
-const StyledIframe = styled.iframe`
-  width: 100%;
-  height: 100%;
-  border: none;
-`;
-
-// Botón flotante para volver
-const BackButton = styled.button`
-  position: absolute;
-  top: 16px;
-  left: 160px;
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: #ffd24c;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-weight: bold;
+  display: block;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
+  user-select: none;
+  translate-y: 2px;
 `;
 
-// Animación en cascada
+// Celulares decorativos (abajo, centrados)
+const PhonesImg = styled(motion.img)`
+  position: absolute;
+  bottom: clamp(-12px, -1vh, 0px);
+  left: 1/2;
+  transform: translateY(100%);
+  width: clamp(300px, 80vw, 600px);
+  max-width: 95vw;
+  height: auto;
+  animation: ${bounce} 3s ease-in-out infinite;
+  pointer-events: none;
+  user-select: none;
+  scale: 1;
+`;
+
+// Variants para fade-in en cascada
 const container = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.2 } },
+  visible: { transition: { staggerChildren: 0.15 } },
 };
 const item = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 60 } },
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 70 } },
 };
 
 export default function LandingPage() {
-  const [iframeUrl, setIframeUrl] = useState("");
-
-  if (iframeUrl) {
-    return (
-      <IframeContainer>
-        <BackButton onClick={() => setIframeUrl("")}>← Volver</BackButton>
-        <StyledIframe src={iframeUrl} />
-      </IframeContainer>
-    );
-  }
-
   return (
     <Hero>
-      {/* <VideoBg src={videoSrc} autoPlay muted loop playsInline /> */}
-      <BackgroundImage src={videoSrc} alt="Fondo" />
+      {/* Fondo */}
+      <BackgroundImage src={bg} alt="Fondo BUK" />
       <Content initial="hidden" animate="visible" variants={container}>
-        {/* <TopImage src={topText} alt="Frase superior" variants={item} /> */}
-        <LogoImage src={logo} alt="Pretty Dirty" variants={item} />
-
+        <LogoImage src={logo} alt="buk" variants={item} />
         <ButtonGroup variants={item}>
-          <Btn
-            onClick={() => setIframeUrl(import.meta.env.VITE_RULETA_URL)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            variants={item}
-          >
-            Ruleta BetPlay
-          </Btn>
-          <Btn
-            onClick={() => setIframeUrl(import.meta.env.VITE_AGILIDAD_URL)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            variants={item}
-          >
-            REFLEJO BetPlay
-          </Btn>
+          <a href="https://where-is-buk.netlify.app" aria-label="Mundo Buk">
+            <ButtonImage
+              src={btnMundo}
+              alt="MUNDO BUK"
+              whileHover={{ scale: 1 }}
+              whileTap={{ scale: 0.9 }}
+            />
+          </a>
+          {/* RULETA BUK */}
+          <a href="https://gen-fortunewheel.netlify.app" aria-label="Ruleta Buk">
+            <ButtonImage
+              src={btnRuleta}
+              alt="RULETA BUK"
+              whileHover={{ scale: 1 }}
+              whileTap={{ scale: 0.9 }}
+              style={{ marginTop: "-20px" }} // 👈 mueve solo este botón hacia arriba
+            />
+          </a>
 
-          {/* <Btn
-            onClick={() => window.location = import.meta.env.VITE_PHOTO_URL}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            variants={item}
-          >
-            Filtro
-          </Btn> */}
-
-          <Btn
-            onClick={() => (window.location = import.meta.env.VITE_RASPA_LISTO_URL)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            variants={item}
-          >
-            RASPA & LISTO
-          </Btn>
         </ButtonGroup>
-
-        <Coins src={coins} alt="Monedas" variants={item} />
       </Content>
-      <Footer>
-        <LegalesImg src={legales} alt="Legales" />
-      </Footer>
+
+      {/* Celulares decorativos */}
+      <PhonesImg
+        src={phones}
+        alt="Celulares BUK"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ type: "spring", stiffness: 60, delay: 0.4 }}
+      />
     </Hero>
   );
 }
