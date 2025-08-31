@@ -75,11 +75,11 @@ const item = {
 
 // ---------- Desktop (landscape / ≥1024px) ----------
 const LogoDesktop = styled(motion.img)`
-  width: clamp(160px, 28vw, 300px);
+  width: clamp(160px, 40vw, 400px);
   height: auto;
   user-select: none;
   pointer-events: none;
-  margin-top: -140px;
+  margin-top: -180px;
 `;
 
 const ButtonsDesktop = styled(motion.div)`
@@ -90,7 +90,7 @@ const ButtonsDesktop = styled(motion.div)`
 `;
 
 const ButtonImgDesktop = styled(motion.img)`
-  width: clamp(260px, 32vw, 360px);
+  width: clamp(260px, 32vw, 400px);
   height: auto;
   display: block;
   cursor: pointer;
@@ -101,7 +101,7 @@ const PhonesDesktop = styled(motion.img)`
   position: absolute;
   bottom: clamp(-12px, -1vh, 0px);
   left: 20%;
-  top: 30%;
+  top: 35%;
   width: clamp(420px, 58vw, 900px);
   height: auto;
   animation: ${bounce} 3s ease-in-out infinite;
@@ -112,18 +112,32 @@ const PhonesDesktop = styled(motion.img)`
 // ---------- Tablet/Vertical (<1024px o portrait) ----------
 /* En vertical hacemos todo MÁS GRANDE para que no “se vea pequeño”.
    Subimos límites de clamp y aumentamos el gap. */
+
+const BackgroundImageTablet = styled(BackgroundImage)`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  transform: translate(-50%, -50%);
+  user-select: none;
+  pointer-events: none;
+`;
+
 const ContentTablet = styled(Content)`
   width: min(100%, 680px);
   gap: clamp(16px, 4.5vh, 28px);
-  transform: translateY(-1vh);
+  transform: translateY(-14vh);
 `;
 
 const LogoTablet = styled(motion.img)`
-  width: clamp(220px, 60vw, 500px);
+  width: clamp(220px, 85vw, 800px);
   height: auto;
   user-select: none;
   pointer-events: none;
-  margin-top: -15vh;
+  margin-bottom: 120px;
 `;
 
 const ButtonsTablet = styled(motion.div)`
@@ -131,10 +145,13 @@ const ButtonsTablet = styled(motion.div)`
   flex-direction: column;
   width: 100%;
   align-items: center;
+  position: relative;
+  top: -70px;
+
 `;
 
 const ButtonImgTablet = styled(motion.img)`
-  width: clamp(300px, 88vw, 520px);
+  width: clamp(300px, 90vw, 620px);
   height: auto;
   display: block;
   cursor: pointer;
@@ -144,9 +161,9 @@ const ButtonImgTablet = styled(motion.img)`
 const PhonesTablet = styled(motion.img)`
   position: absolute;
   bottom: clamp(-6px, 1vh, 24px);
-  left: -10%;
-  top: 40%;
-  width: clamp(450px, 120vw, 1500px);
+  left: -25%;
+  top: 30;
+  width: clamp(450px, 150vw, 1500px);
   height: auto;
   animation: ${bounce} 3s ease-in-out infinite;
   pointer-events: none;
@@ -178,7 +195,7 @@ export default function LandingPage() {
                   alt="RULETA BUK"
                   whileHover={{ scale: 1 }}
                   whileTap={{ scale: 0.9 }}
-                  style={{ marginTop: "-30px" }}
+                  style={{ marginTop: "-50px" }}
                 />
               </a>
             </ButtonsDesktop>
@@ -197,7 +214,7 @@ export default function LandingPage() {
       {/* ====== Tablet / Vertical ====== */}
       <TabletOnly>
         <Hero>
-          <BackgroundImage src={bg} alt="Fondo BUK" />
+          <BackgroundImageTablet src={bg} alt="Fondo BUK" />
           <ContentTablet initial="hidden" animate="visible" variants={container}>
             <LogoTablet src={logo} alt="buk" variants={item} />
             <ButtonsTablet variants={item}>
@@ -215,7 +232,7 @@ export default function LandingPage() {
                   alt="RULETA BUK"
                   whileHover={{ scale: 1 }}
                   whileTap={{ scale: 0.96 }}
-                  style={{ marginTop: "-40px" }}
+                  style={{ marginTop: "-90px" }}
                 />
               </a>
             </ButtonsTablet>
