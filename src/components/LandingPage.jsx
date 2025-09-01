@@ -133,7 +133,7 @@ const ContentTablet = styled(Content)`
 `;
 
 const LogoTablet = styled(motion.img)`
-  width: clamp(220px, 85vw, 800px);
+  width: clamp(220px, 85vw, 850px);
   height: auto;
   user-select: none;
   pointer-events: none;
@@ -146,12 +146,12 @@ const ButtonsTablet = styled(motion.div)`
   width: 100%;
   align-items: center;
   position: relative;
-  top: -70px;
+  top: -50px;
 
 `;
 
 const ButtonImgTablet = styled(motion.img)`
-  width: clamp(300px, 90vw, 620px);
+  width: clamp(300px, 110vw, 800px);
   height: auto;
   display: block;
   cursor: pointer;
@@ -163,7 +163,7 @@ const PhonesTablet = styled(motion.img)`
   bottom: clamp(-6px, 1vh, 24px);
   left: -25%;
   top: 30;
-  width: clamp(450px, 150vw, 1500px);
+  width: clamp(450px, 150vw, 1600px);
   height: auto;
   animation: ${bounce} 3s ease-in-out infinite;
   pointer-events: none;
@@ -232,7 +232,7 @@ export default function LandingPage() {
                   alt="RULETA BUK"
                   whileHover={{ scale: 1 }}
                   whileTap={{ scale: 0.96 }}
-                  style={{ marginTop: "-90px" }}
+                  style={{ marginTop: "-110px" }}
                 />
               </a>
             </ButtonsTablet>
