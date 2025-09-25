@@ -1,252 +1,244 @@
+import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
 
-// ✅ Assets BUK
-import bg from "../BUK/FONDO_MAIN.png";
-import logo from "../BUK/LOGO_COPY.png";
-import btnMundo from "../BUK/BOTON_MUNDO.png";
-import btnRuleta from "../BUK/BOTON_RULETA.png";
-import phones from "../BUK/CELS.png";
+import videoSrc from "../assets/BETPLAY/RULETA_TOTEM.mp4";
+import topText from "../assets/BETPLAY/FRASE_COPY.png";
+import logo from "../assets/BETPLAY/LOGO-BETPLAY.png";
+import buttonBg from "../assets/BETPLAY/BOTON_INICIO.png";
+import coins from "../assets/BETPLAY/MONEDAS_HOME.png";
+import legales from "../assets/BETPLAY/LEGALES.png";
 
-// --- Animaciones ---
+// Animaciones
 const bounce = keyframes`
   0%,100% { transform: translateY(0); }
   50%     { transform: translateY(-10px); }
 `;
 
-// ---------- Helpers de visibilidad ----------
-const DesktopOnly = styled.div`
-  display: block;
-  @media (max-width: 1023px), (orientation: portrait) {
-    display: none;
-  }
-`;
+// Breakpoints
+const bp = { lg: "1200px", md: "768px", sm: "480px" };
 
-const TabletOnly = styled.div`
-  display: none;
-  /* Muestra en pantallas angostas o en orientación vertical */
-  @media (max-width: 1023px), (orientation: portrait) {
-    display: block;
-  }
-`;
-
-// ---------- Layout base compartido ----------
+// Estilos base
 const Hero = styled.section`
   position: relative;
   width: 100vw;
   height: 100dvh;
-  max-height: 100dvh;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
 `;
 
-const BackgroundImage = styled.img`
-  position: absolute;
+const VideoBg = styled.video`
+  position: fixed;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100dvh;
   object-fit: cover;
-  user-select: none;
-  pointer-events: none;
+  z-index: 0;
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  inset: 0;
+  /* Sutil degradado para mejorar contraste de textos/botones */
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0.35) 0%,
+    rgba(0,0,0,0.25) 40%,
+    rgba(0,0,0,0.45) 100%
+  );
+  z-index: 0;
 `;
 
 const Content = styled(motion.div)`
   position: relative;
   z-index: 1;
-  width: min(100%, 900px);
-  padding: 0 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(10px, 3vh, 24px);
-`;
-
-// ---------- Variants ----------
-const container = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.15 } },
-};
-const item = {
-  hidden: { opacity: 0, y: 18 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 70 } },
-};
-
-// ---------- Desktop (landscape / ≥1024px) ----------
-const LogoDesktop = styled(motion.img)`
-  width: clamp(160px, 40vw, 400px);
-  height: auto;
-  user-select: none;
-  pointer-events: none;
-  margin-top: -180px;
-`;
-
-const ButtonsDesktop = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
+  flex: 1;
   width: 100%;
-  align-items: center;
+  height: 100%;
+  box-sizing: border-box;
+
+  display: grid;
+  place-items: center;
+
+  /* Permite scroll si algo se desborda en altura */
+  overflow-y: auto;
+  padding: clamp(12px, 2.5vh, 24px) 12px;
 `;
 
-const ButtonImgDesktop = styled(motion.img)`
-  width: clamp(260px, 32vw, 400px);
-  height: auto;
-  display: block;
+/* Columna central con ancho contenido para evitar “demasiado ancho” */
+const MaxCol = styled.div`
+  width: 100%;
+  max-width: 720px; /* se ve bien en 1080x1920 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(16px, 3vh, 28px);
+`;
+
+const TopImage = styled(motion.img)`
+  width: min(95vw, 840px);
+`;
+
+const LogoImage = styled(motion.img)`
+  width: min(95vw, 820px);
+`;
+
+/* Grupo de botones APILADOS en vertical por defecto (portrait) */
+const ButtonGroup = styled(motion.div)`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 2.2vh, 16px);
+  margin-top: clamp(8px, 1vh, 12px);
+
+  /* En landscape amplio, los mostramos en fila */
+  @media (orientation: landscape) and (min-width: ${bp.md}) {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+`;
+
+/* Botón con imagen de fondo, altura fija y texto centrado */
+const Btn = styled(motion.button)`
+  width: min(90vw, 720px);
+  height: clamp(120px, 20vh, 200px);
+  background: url(${buttonBg}) center / contain no-repeat transparent;
+  border: none;
+  color: #ffd24c;
+  font-size: clamp(3.8rem, 3.8vw, 2rem);
+  letter-spacing: 0.5px;
+  font-weight: 800;
+  text-transform: uppercase;
   cursor: pointer;
-  user-select: none;
-`;
 
-const PhonesDesktop = styled(motion.img)`
-  position: absolute;
-  bottom: clamp(-12px, -1vh, 0px);
-  left: 20%;
-  top: 35%;
-  width: clamp(420px, 58vw, 900px);
-  height: auto;
-  animation: ${bounce} 3s ease-in-out infinite;
-  pointer-events: none;
-  user-select: none;
-`;
-
-// ---------- Tablet/Vertical (<1024px o portrait) ----------
-/* En vertical hacemos todo MÁS GRANDE para que no “se vea pequeño”.
-   Subimos límites de clamp y aumentamos el gap. */
-
-const BackgroundImageTablet = styled(BackgroundImage)`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  transform: translate(-50%, -50%);
-  user-select: none;
-  pointer-events: none;
-`;
-
-const ContentTablet = styled(Content)`
-  width: min(100%, 680px);
-  gap: clamp(16px, 4.5vh, 28px);
-  transform: translateY(-14vh);
-`;
-
-const LogoTablet = styled(motion.img)`
-  width: clamp(220px, 85vw, 850px);
-  height: auto;
-  user-select: none;
-  pointer-events: none;
-  margin-bottom: 120px;
-`;
-
-const ButtonsTablet = styled(motion.div)`
   display: flex;
-  flex-direction: column;
-  width: 100%;
   align-items: center;
+  justify-content: center;
+  /* Sombra sutil para separar del fondo */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+
+  /* “Hit area” cómoda */
+  padding-inline: 12px;
+
+  /* Pequeña elevación al hacer hover/tap ya la maneja framer, pero añadimos focus */
+  &:focus-visible {
+    outline: 2px solid #ffd24c;
+    outline-offset: 2px;
+    border-radius: 10px;
+  }
+`;
+
+const Coins = styled(motion.img)`
+  width: min(60vw, 470px);
+  margin-top: 100px;
+  animation: ${bounce} 2.5s ease-in-out infinite;
+`;
+
+const Footer = styled.footer`
   position: relative;
-  top: -50px;
-
+  z-index: 1;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding-bottom: clamp(8px, 2vh, 16px);
 `;
 
-const ButtonImgTablet = styled(motion.img)`
-  width: clamp(300px, 110vw, 800px);
+const LegalesImg = styled.img`
+  width: min(95vw, 1000px);
   height: auto;
-  display: block;
-  cursor: pointer;
-  user-select: none;
 `;
 
-const PhonesTablet = styled(motion.img)`
+const IframeContainer = styled.div`
+  width: 100vw;
+  height: 100dvh;
+  position: relative;
+`;
+
+const StyledIframe = styled.iframe`
+  width: 100%;
+  height: 100%;
+  border: none;
+`;
+
+// Botón flotante para volver
+const BackButton = styled.button`
   position: absolute;
-  bottom: clamp(-6px, 1vh, 24px);
-  left: -25%;
-  top: 30;
-  width: clamp(450px, 150vw, 1600px);
-  height: auto;
-  animation: ${bounce} 3s ease-in-out infinite;
-  pointer-events: none;
-  user-select: none;
+  top: max(16px, env(safe-area-inset-top));
+  left: max(16px, env(safe-area-inset-left));
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffd24c;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
 `;
 
-// ---------- Componente ----------
+// Animación en cascada
+const container = { hidden: {}, visible: { transition: { staggerChildren: 0.2 } } };
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 60 } }
+};
+
 export default function LandingPage() {
+  const [iframeUrl, setIframeUrl] = useState("");
+
+  if (iframeUrl) {
+    return (
+      <IframeContainer>
+        <BackButton onClick={() => setIframeUrl("")}>← Volver</BackButton>
+        <StyledIframe src={iframeUrl} />
+      </IframeContainer>
+    );
+  }
+
   return (
-    <>
-      {/* ====== Desktop ====== */}
-      <DesktopOnly>
-        <Hero>
-          <BackgroundImage src={bg} alt="Fondo BUK" />
-          <Content initial="hidden" animate="visible" variants={container}>
-            <LogoDesktop src={logo} alt="buk" variants={item} />
-            <ButtonsDesktop variants={item}>
-              <a href="https://where-is-buk.netlify.app" aria-label="Mundo Buk">
-                <ButtonImgDesktop
-                  src={btnMundo}
-                  alt="MUNDO BUK"
-                  whileHover={{ scale: 1 }}
-                  whileTap={{ scale: 0.9 }}
-                />
-              </a>
-              <a href="https://gen-fortunewheel.netlify.app" aria-label="Ruleta Buk">
-                <ButtonImgDesktop
-                  src={btnRuleta}
-                  alt="RULETA BUK"
-                  whileHover={{ scale: 1 }}
-                  whileTap={{ scale: 0.9 }}
-                  style={{ marginTop: "-50px" }}
-                />
-              </a>
-            </ButtonsDesktop>
-          </Content>
+    <Hero>
+      <VideoBg src={videoSrc} autoPlay muted loop playsInline />
+      <Overlay />
+      <Content initial="hidden" animate="visible" variants={container}>
+        <MaxCol>
+          <TopImage src={topText} alt="Frase superior" variants={item} />
+          <LogoImage src={logo} alt="Logo Betplay" variants={item} />
 
-          <PhonesDesktop
-            src={phones}
-            alt="Celulares BUK"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ type: "spring", stiffness: 60, delay: 0.4 }}
-          />
-        </Hero>
-      </DesktopOnly>
+          <ButtonGroup variants={item}>
+            <Btn
+              onClick={() => setIframeUrl(import.meta.env.VITE_RULETA_URL)}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              variants={item}
+            >
+              ¡Giro!
+            </Btn>
+            <Btn
+              onClick={() => setIframeUrl(import.meta.env.VITE_AGILIDAD_URL)}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              variants={item}
+            >
+              Reflejo
+            </Btn>
+          </ButtonGroup>
 
-      {/* ====== Tablet / Vertical ====== */}
-      <TabletOnly>
-        <Hero>
-          <BackgroundImageTablet src={bg} alt="Fondo BUK" />
-          <ContentTablet initial="hidden" animate="visible" variants={container}>
-            <LogoTablet src={logo} alt="buk" variants={item} />
-            <ButtonsTablet variants={item}>
-              <a href="https://where-is-buk.netlify.app" aria-label="Mundo Buk">
-                <ButtonImgTablet
-                  src={btnMundo}
-                  alt="MUNDO BUK"
-                  whileHover={{ scale: 1 }}
-                  whileTap={{ scale: 0.96 }}
-                />
-              </a>
-              <a href="https://gen-fortunewheel.netlify.app" aria-label="Ruleta Buk">
-                <ButtonImgTablet
-                  src={btnRuleta}
-                  alt="RULETA BUK"
-                  whileHover={{ scale: 1 }}
-                  whileTap={{ scale: 0.96 }}
-                  style={{ marginTop: "-110px" }}
-                />
-              </a>
-            </ButtonsTablet>
-          </ContentTablet>
+          <Coins src={coins} alt="Monedas" variants={item} />
+        </MaxCol>
+      </Content>
 
-          <PhonesTablet
-            src={phones}
-            alt="Celulares BUK"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ type: "spring", stiffness: 60, delay: 0.4 }}
-          />
-        </Hero>
-      </TabletOnly>
-    </>
+      <Footer>
+        <LegalesImg src={legales} alt="Legales" />
+      </Footer>
+    </Hero>
   );
 }
