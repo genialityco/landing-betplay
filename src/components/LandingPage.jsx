@@ -223,12 +223,12 @@ export default function LandingPage() {
               ¡Giro!
             </Btn>
             <Btn
-              onClick={() => setIframeUrl(import.meta.env.VITE_AGILIDAD_URL)}
+              onClick={() => setIframeUrl(import.meta.env.VITE_RASPA_LISTO_URL)}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               variants={item}
             >
-              Reflejo
+              Raspa y gana
             </Btn>
           </ButtonGroup>
 
