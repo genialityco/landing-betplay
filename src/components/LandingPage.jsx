@@ -220,7 +220,7 @@ export default function LandingPage() {
               whileTap={{ scale: 0.97 }}
               variants={item}
             >
-              ¡Giro!
+              RULETA
             </Btn>
             <Btn
               onClick={() => setIframeUrl(import.meta.env.VITE_RASPA_LISTO_URL)}
@@ -228,7 +228,7 @@ export default function LandingPage() {
               whileTap={{ scale: 0.97 }}
               variants={item}
             >
-              Raspa y gana
+              RASPA Y GANA
             </Btn>
           </ButtonGroup>
 
