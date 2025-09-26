@@ -44,9 +44,9 @@ const Overlay = styled.div`
   /* Sutil degradado para mejorar contraste de textos/botones */
   background: linear-gradient(
     180deg,
-    rgba(0,0,0,0.35) 0%,
-    rgba(0,0,0,0.25) 40%,
-    rgba(0,0,0,0.45) 100%
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.25) 40%,
+    rgba(0, 0, 0, 0.45) 100%
   );
   z-index: 0;
 `;
@@ -119,7 +119,7 @@ const Btn = styled(motion.button)`
   align-items: center;
   justify-content: center;
   /* Sombra sutil para separar del fondo */
-  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 
   /* “Hit area” cómoda */
   padding-inline: 12px;
@@ -186,10 +186,13 @@ const BackButton = styled.button`
 `;
 
 // Animación en cascada
-const container = { hidden: {}, visible: { transition: { staggerChildren: 0.2 } } };
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.2 } },
+};
 const item = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 60 } }
+  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 60 } },
 };
 
 export default function LandingPage() {
@@ -204,43 +207,53 @@ export default function LandingPage() {
     );
   }
 
-  const URLRULETA = "https://gen-fortunewheel.netlify.app/"
+  const URLRULETA = "https://gen-fortunewheel.netlify.app/";
 
   return (
-    <Hero>
-      <VideoBg src={videoSrc} autoPlay muted loop playsInline />
-      <Overlay />
-      <Content initial="hidden" animate="visible" variants={container}>
-        <MaxCol>
-          <TopImage src={topText} alt="Frase superior" variants={item} />
-          <LogoImage src={logo} alt="Logo Betplay" variants={item} />
+    <>
+      <Hero>
+        <VideoBg src={videoSrc} autoPlay muted loop playsInline />
+        <Overlay />
+        <Content initial="hidden" animate="visible" variants={container}>
+          <MaxCol>
+            <TopImage src={topText} alt="Frase superior" variants={item} />
+            <LogoImage src={logo} alt="Logo Betplay" variants={item} />
 
-          <ButtonGroup variants={item}>
-            <Btn
-              onClick={() => setIframeUrl(URLRULETA)}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              variants={item}
-            >
-              RULETA
-            </Btn>
-            <Btn
-              onClick={() => setIframeUrl(import.meta.env.VITE_RASPA_LISTO_URL)}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              variants={item}
-            >
-              RASPA Y GANA
-            </Btn>
-          </ButtonGroup>
+            <ButtonGroup variants={item}>
+              <Btn
+                onClick={() =>
+                  window.open(
+                    "https://gen-fortunewheel.netlify.app/",
+                    "_blank",
+                    "noopener,noreferrer"
+                  )
+                }
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                variants={item}
+              >
+                RULETA
+              </Btn>
+              <Btn
+                onClick={() =>
+                  setIframeUrl(import.meta.env.VITE_RASPA_LISTO_URL)
+                }
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                variants={item}
+              >
+                RASPA Y GANA
+              </Btn>
+            </ButtonGroup>
 
-          <Coins src={coins} alt="Monedas" variants={item} />
-        </MaxCol>
-      </Content>
+            <Coins src={coins} alt="Monedas" variants={item} />
+          </MaxCol>
+        </Content>
 
-      <Footer>
-        <LegalesImg src={legales} alt="Legales" />
-      </Footer>
-    </Hero>
+        <Footer>
+          <LegalesImg src={legales} alt="Legales" />
+        </Footer>
+      </Hero>
+    </>
   );
 }
