@@ -222,11 +222,7 @@ export default function LandingPage() {
             <ButtonGroup variants={item}>
               <Btn
                 onClick={() =>
-                  window.open(
-                    "https://gen-fortunewheel.netlify.app/",
-                    "_blank",
-                    "noopener,noreferrer"
-                  )
+                  setIframeUrl(import.meta.env.VITE_RULETA_URL)
                 }
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
