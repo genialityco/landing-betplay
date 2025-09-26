@@ -204,6 +204,8 @@ export default function LandingPage() {
     );
   }
 
+  const URLRULETA = "https://gen-fortunewheel.netlify.app/"
+
   return (
     <Hero>
       <VideoBg src={videoSrc} autoPlay muted loop playsInline />
@@ -215,7 +217,7 @@ export default function LandingPage() {
 
           <ButtonGroup variants={item}>
             <Btn
-              onClick={() => setIframeUrl(import.meta.env.VITE_RULETA_URL)}
+              onClick={() => setIframeUrl(URLRULETA)}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               variants={item}
