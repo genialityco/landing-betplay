@@ -7,7 +7,7 @@ import topText from "../assets/BETPLAY/FRASE_COPY.png";
 import logo from "../assets/BETPLAY/LOGO-BETPLAY.png";
 import buttonBg from "../assets/BETPLAY/BOTON_INICIO.png";
 import coins from "../assets/BETPLAY/MONEDAS_HOME.png";
-import legales from "../assets/BETPLAY/LEGALES.png";
+import legales from "../assets/BETPLAY/TEXTOS_LEGALES.png";
 
 // Animaciones
 const bounce = keyframes`
