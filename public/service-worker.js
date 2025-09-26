@@ -23,16 +23,3 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// Interceptar peticiones y servir desde cache si existen
-self.addEventListener("fetch", (event) => {
-    const url = new URL(event.request.url);
-  
-    // Solo cachear requests de tu origen (no HMR, no Vite client)
-    if (url.origin === location.origin) {
-      event.respondWith(
-        caches.match(event.request).then((response) => {
-          return response || fetch(event.request);
-        })
-      );
-    }
-  });
